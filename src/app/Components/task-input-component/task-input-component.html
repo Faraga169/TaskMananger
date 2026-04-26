@@ -1,0 +1,40 @@
+<div class="task-form">
+
+  <h2>Add New Task</h2>
+
+  <form >
+
+    <!-- Title -->
+    <label for="title">Task Title</label>
+    <input type="text" id="title"  name="title" required />
+
+    <!-- Description -->
+    <label for="description">Description</label>
+    <textarea id="description"  name="description"></textarea>
+
+    <!-- Priority -->
+    <label for="priority">Priority</label>
+    <select id="priority"  name="priority">
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+
+    <!-- Due Date -->
+    <label for="dueDate">Due Date</label>
+    <input type="date" id="dueDate" name="dueDate" />
+
+    <!-- Category -->
+    <label for="category">Category</label>
+    <select id="category"  name="category">
+      <option value="work">Work</option>
+      <option value="personal">Personal</option>
+      <option value="study">Study</option>
+    </select>
+
+    <!-- Button -->
+    <button type="submit">Add Task</button>
+
+  </form>
+
+</div>

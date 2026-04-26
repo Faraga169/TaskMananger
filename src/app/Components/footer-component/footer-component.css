@@ -1,0 +1,19 @@
+.footer {
+  background-color: #1f2937; 
+  color: #ffffff;
+  text-align: center;
+  padding: 20px 10px;
+  margin-top: 40px;
+  font-size: 14px;
+  border-top: 2px solid #374151;
+}
+
+.footer p {
+  margin: 5px 0;
+  opacity: 0.9;
+}
+
+.footer p:last-child {
+  font-size: 13px;
+  opacity: 0.7;
+}
