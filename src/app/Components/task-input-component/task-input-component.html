@@ -1,20 +1,27 @@
 <div class="task-form">
 
-  <h2>Add New Task</h2>
+  <h2> Add New Task</h2>
 
-  <form >
+   <!-- Error Message -->
+    @if(Error.state){
+     <div class="alert alert-danger">
+    {{ Error.message }}
+  </div>
+    }
 
-    <!-- Title -->
+
+ <form>
+   <!-- Title -->
     <label for="title">Task Title</label>
-    <input type="text" id="title"  name="title" required />
+    <input type="text" id="title" [(ngModel)]="Task.Title"  name="title" required placeholder="Enter your Title" />
 
     <!-- Description -->
     <label for="description">Description</label>
-    <textarea id="description"  name="description"></textarea>
+    <textarea id="description" [(ngModel)]="Task.Description" placeholder="Enter your description"  name="description"></textarea>
 
     <!-- Priority -->
     <label for="priority">Priority</label>
-    <select id="priority"  name="priority">
+    <select id="priority" [(ngModel)]="Task.Priority"   name="priority">
       <option value="low">Low</option>
       <option value="medium">Medium</option>
       <option value="high">High</option>
@@ -22,19 +29,27 @@
 
     <!-- Due Date -->
     <label for="dueDate">Due Date</label>
-    <input type="date" id="dueDate" name="dueDate" />
+    <input type="date" [(ngModel)]="Task.DueDate"  id="dueDate" name="dueDate" />
 
     <!-- Category -->
     <label for="category">Category</label>
-    <select id="category"  name="category">
+    <select id="category" [(ngModel)]="Task.Category"   name="category">
       <option value="work">Work</option>
       <option value="personal">Personal</option>
       <option value="study">Study</option>
     </select>
 
     <!-- Button -->
-    <button type="submit">Add Task</button>
+    <button type="button" (click)="isEditMode ? Update() : Submit()">
 
-  </form>
+  {{ isEditMode ? 'Update' : 'Add' }}
+
+</button>
+ </form>
+
+
+
+
+
 
 </div>

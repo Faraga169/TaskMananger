@@ -1,0 +1,98 @@
+<div class="container mt-4">
+  <div class="row g-4">
+
+    @if(GetDataFromlist.length>0){
+       @for (i of GetDataFromlist; track i.Id) {
+
+      <div class="col-md-6">
+
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+
+          <div class="card-body p-4">
+
+            <!-- Title -->
+            <h5 class="fw-bold mb-2">
+              {{ i.Title }}
+            </h5>
+
+            <!-- Description -->
+            <p class="text-muted mb-3">
+              {{ i.Description }}
+            </p>
+
+            <!-- Badges -->
+            <div class="d-flex flex-wrap gap-2 mb-3">
+
+              <span class="badge bg-light text-dark border">
+                {{ i.Priority }}
+              </span>
+
+              <span class="badge bg-light text-dark border">
+                {{ i.Category }}
+              </span>
+
+              <span class="badge bg-warning text-dark">
+                {{ i.Status }}
+              </span>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="d-flex justify-content-between align-items-center">
+
+              <small class="text-muted">
+                {{ i.DueDate }}
+              </small>
+
+              <!-- Buttons -->
+              <div class="d-flex gap-2">
+
+                <button (click)="onUpdateClick(i)" class="btn btn-sm btn-outline-warning rounded-pill">
+                  Update
+                </button>
+
+                <button (click)="onDeleteClick(i)" class="btn btn-sm btn-outline-danger rounded-pill">
+                  Delete
+                </button>
+
+
+                  <button (click)="onDoneClick(i)" class="btn btn-sm btn-success rounded-pill">
+                    Done
+                  </button>
+
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      }
+
+
+    }
+
+@else{
+   <div class="col-12">
+    <div class="text-center py-5">
+
+      <div class="mb-3">
+        <i class="bi bi-inbox display-4 text-muted"></i>
+      </div>
+
+      <h4 class="text-muted">
+        No  Tasks Found
+      </h4>
+
+      <p class="text-muted mb-0">
+        Start by adding your first task
+      </p>
+
+    </div>
+  </div>
+}
+
+  </div>
+</div>
