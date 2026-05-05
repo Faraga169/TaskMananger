@@ -1,0 +1,99 @@
+<body>
+  <div class="wrapper">
+    <div class="login_box">
+      <div class="login-header">
+        <span>Sign Up</span>
+      </div>
+
+      <form [formGroup]="form"   (submit)="EventHandler(form)">
+        <div class="input_box">
+          <input   formControlName="Username"
+            type="text"
+            name="UserName"
+            id="UserName"
+            class="input-field"
+            placeholder=""
+          />
+          <label for="UserName" class="label">Username</label>
+          <i class="bx bx-user icon"></i>
+        </div>
+         @if(form.get("Username")?.errors?.['required']&&form.get("Username")?.touched){
+               <div class="alert alert-danger py-2 mt-2 mb-0" >Username is required</div>
+         }
+          @else if (form.get("Username")?.errors?.['pattern'] && form.get("Username")?.dirty) {
+          <div class="alert alert-danger py-2 mt-2 mb-0">
+          Username must be 3–15 characters (letters & numbers only)
+          </div>
+        }
+         <div class="input_box">
+          <input   formControlName="Email"
+            type="email"
+            name="Email"
+            id="Email"
+            class="input-field"
+            placeholder=""
+          />
+          <label for="Email" class="label">Email</label>
+          <i class="bx bx-envelope icon"></i>
+        </div>
+              @if(form.get("Email")?.errors?.['required']&&form.get("Email")?.touched){
+               <div class="alert alert-danger py-2 mt-2 mb-0" >Email is required</div>
+         }
+          @else if (form.get("Email")?.errors?.['email'] && form.get("Email")?.dirty) {
+          <div class="alert alert-danger py-2 mt-2 mb-0">
+          Enter a valid email address (e.g., name@email.com)
+          </div>
+        }
+
+        <div class="input_box">
+          <input      formControlName="Password"
+            type="password"
+            name="Password"
+            id="Password"
+            class="input-field"
+            placeholder=""
+          />
+          <label for="Password" class="label">Password</label>
+          <i class="bx bx-lock-alt icon"></i>
+        </div>
+
+          @if (form.get("Password")?.errors?.['required'] && form.get("Password")?.touched) {
+          <div class="alert alert-danger py-2 mt-2 mb-0" >Password is required</div>
+        }
+        @else if (form.get("Password")?.errors?.['pattern'] && form.get("Password")?.dirty) {
+          <div class="alert alert-danger py-2 mt-2 mb-0" >
+           Password must include letters, numbers & special characters (min 6 characters)
+          </div>
+        }
+
+          <div class="input_box">
+          <input    formControlName="ConfirmPassword"
+            type="password"
+            name="Confirmpassword"
+            id="ConfirmPassword"
+            class="input-field"
+            placeholder=""
+          />
+          <label for="ConfirmPassword" class="label">Confirm Password</label>
+          <i class="bx bx-lock-alt icon"></i>
+        </div>
+            @if (form.get("ConfirmPassword")?.errors?.['required'] && form.get("ConfirmPassword")?.touched) {
+          <div class="alert alert-danger py-2 mt-2 mb-0" >Password is required</div>
+        }
+        @else if (form.get("ConfirmPassword")?.errors?.['pattern'] && form.get("ConfirmPassword")?.dirty) {
+          <div class="alert alert-danger py-2 mt-2 mb-0 " >
+           Password must include letters, numbers & special characters (min 6 characters)
+          </div>
+        }
+        @else if(form.errors?.['notmatch']&&form.get("ConfirmPassword")?.dirty){
+                 <div class="alert alert-danger py-2 mt-2 mb-0" >
+                          Confirm Password must be same with Password
+          </div>
+        }
+        <div class="input_box">
+          <input [disabled]="form.invalid" type="submit" class="input-submit" value="Sign Up" />
+        </div>
+      </form>
+    </div>
+  </div>
+</body>

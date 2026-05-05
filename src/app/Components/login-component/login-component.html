@@ -1,0 +1,64 @@
+<body>
+  <div class="wrapper">
+    <div class="login_box">
+      <div class="login-header">
+        <span>Login</span>
+      </div>
+
+      <form #form="ngForm" (submit)="EventHandler(form)">
+        <div class="input_box">
+          <input #username="ngModel"
+            ngModel
+            type="text"
+            name="UserName"
+            id="UserName"
+            class="input-field"
+            placeholder=" "
+            required
+            minlength="3"
+            maxlength="15"
+            pattern="^[a-zA-Z0-9]{3,15}$"
+          />
+          <label for="UserName" class="label">Username</label>
+          <i class="bx bx-user icon"></i>
+        </div>
+         @if (username?.errors?.['required'] && username.touched) {
+          <div class="alert alert-danger py-2 mt-2 mb-0" >Username is required</div>
+        }
+        @else if (username?.errors?.['pattern'] && username.dirty) {
+          <div class="alert alert-danger py-2 mt-2 mb-0">
+          Username must be 3–15 characters (letters & numbers only)
+          </div>
+        }
+
+        <div class="input_box">
+          <input
+            ngModel
+            #password="ngModel"
+            type="password"
+            name="Password"
+            id="Password"
+            class="input-field"
+            placeholder=" "
+            required
+          pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$!%*?&])[a-zA-Z\d@#$!%*?&]{6,}$"
+          />
+          <label for="Password" class="label">Password</label>
+          <i class="bx bx-lock-alt icon"></i>
+        </div>
+        @if (password?.errors?.['required'] && password.touched) {
+          <div class="alert alert-danger py-2 mt-2 mb-0" role="alert">Password is required</div>
+        }
+        @else if (password?.errors?.['pattern'] && password.dirty) {
+          <div class="alert alert-danger py-2 mt-2 mb-0" >
+           Password must include letters, numbers & special characters (min 6 characters)
+          </div>
+        }
+
+        <div class="input_box">
+          <input [disabled]="form.invalid" type="submit" class="input-submit" value="Login" />
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
