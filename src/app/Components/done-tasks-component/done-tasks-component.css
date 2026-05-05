@@ -1,0 +1,49 @@
+.card {
+  transition: 0.3s ease;
+  border-radius: 16px;
+}
+
+/* hover effect */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* title */
+.card h5 {
+  font-size: 1.2rem;
+  color: #222;
+}
+
+/* description */
+.card p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* badges */
+.badge {
+  font-size: 0.75rem;
+  padding: 6px 10px;
+  border-radius: 20px;
+}
+
+/* status (Not Done focus) */
+.badge.bg-warning {
+  background: linear-gradient(135deg, #f7971e, #ffd200) !important;
+  color: #000;
+}
+
+/* buttons */
+.btn {
+  transition: 0.25s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+/* empty state icon */
+.bi-inbox {
+  opacity: 0.5;
+}

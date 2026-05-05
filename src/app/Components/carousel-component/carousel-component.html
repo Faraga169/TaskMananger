@@ -3,7 +3,7 @@
 
 
   <div class="image-container">
-    <img [src]="currentImage" alt="image" />
+    <img [src]="currentImage()" alt="image" />
   </div>
 
 
@@ -14,7 +14,7 @@
 
   <div class="dots">
         @for(img of images;track $index ){
-                <span [class.active]="$index == currentIndex"   (click)="goTo($index)"></span>
+                <span [class.active]="$index == currentIndex()"   (click)="goTo($index)"></span>
         }
   </div>
 

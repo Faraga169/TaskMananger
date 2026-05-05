@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 
 @Component({
   selector: 'app-carousel-component',
@@ -7,44 +7,35 @@ import { Component } from '@angular/core';
   styleUrl: './carousel-component.css',
 })
 export class CarouselComponent {
-  constructor(){
-this.autoSlide();
-  }
+
   images:string[]=['assets/1.jpg', 'assets/2.jpg','assets/3.jpg','assets/4.jpg'];
-  currentIndex:number=0;
-  currentImage:string=this.images[this.currentIndex];
-  target:number=0;
+  currentIndex=signal<number>(0);
+  currentImage = computed(() => this.images[this.currentIndex()]);
+
+ngOnInit(): void {
+
+this.autoSlide();
+
+}
 
   autoSlide() {
   setInterval(() => {
-    this.currentIndex = (this.currentIndex+1)  % this.images.length;
-    this.currentImage = this.images[this.currentIndex];
+    this.currentIndex.update(prev => (prev + 1) % this.images.length);
   }, 2000);
 }
 
 prev(){
-  if(this.currentIndex==0){
-           this.currentIndex=this.images.length
-  }
-   this.currentIndex = (this.currentIndex-1)  % this.images.length;
-   this.currentImage = this.images[this.currentIndex];
+ this.currentIndex.update(prev => (prev - 1) % this.images.length);
 }
 
 next(){
-  this.currentIndex = (this.currentIndex+1)  % this.images.length;
-  this.currentImage = this.images[this.currentIndex];
+ this.currentIndex.update(prev => (prev + 1) % this.images.length);
 }
 
-// ngOnInit(): void {
-//   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-//   //Add 'implements OnInit' to the class.
 
-
-// }
 
 goTo(i: number) {
-  this.currentIndex = i;
-  this.currentImage = this.images[this.currentIndex];
+  this.currentIndex.set(i);
 }
 
 }

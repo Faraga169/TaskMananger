@@ -1,7 +1,10 @@
-import { ITask } from './../../Interface/ITask';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IError } from '../../Interface/IError';
+import { Tasks } from '../../Services/Apis/TaskService';
+import { Title } from '@angular/platform-browser';
+import { ITaskBase } from '../../Interface/ITaskBase';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-task-input-component',
   imports: [FormsModule],
@@ -9,55 +12,74 @@ import { IError } from '../../Interface/IError';
   styleUrl: './task-input-component.css',
 })
 export class TaskInputComponent {
-Task: ITask = {
-    Id: this.GetId(),
+    TaskService = inject(Tasks);
+    toastr = inject(ToastrService);
+    currentuser=localStorage.getItem("UserName");
+    Task=signal<ITaskBase>(
+      {
     Title: '',
     Description: '',
     Priority: '',
     DueDate: '',
     Category: '',
-    Status: 'Not Done'
-  };
-isEditMode:boolean=false;
-@Input() set UpdateTask(task: ITask | null) {
+    Status: 'Not Done',
+    UserName:this.currentuser
+  }
+    );
+
+      isEditMode: boolean = false;
+  ngOnInit(): void {
+     const task = this.TaskService.selectedTask();
+     console.log(task);
+
   if (task) {
-    this.Task = { ...task };   // copy
-    this.isEditMode = true;
+
+    this.Task.set(task);
+    this.isEditMode=true;
   }
 }
-  // TRansfer data from TaskInput to App
-  @Output() itemevent: EventEmitter<ITask> = new EventEmitter<ITask>();
 
-  // Get Data from App to TaskInput
+
+
   Error: IError = {
     message: '',
     state: false,
   };
 
-
   Update() {
-    this.itemevent.emit(this.Task);
-    this.Task = {
-      Id: this.Task.Id,
+    // this.itemevent.emit(this.Task);
+    this.TaskService.UpdateTask(this.Task()).subscribe({
+      next:(res)=>{
+           this.toastr.success('Task Updated Successfully  🎉', 'Success', {
+        timeOut: 2000,
+        progressBar: true,
+        positionClass: 'toast-top-right'
+      });
+       this.TaskService.selectedTask.set(null);
+      this.isEditMode = false;
+
+
+    }
+  });
+    this.Task.set(
+       {
       Title: '',
       Description: '',
       Priority: '',
       DueDate: '',
       Category: '',
-      Status: 'Not Done'
-    };
-      this.isEditMode = false;
+      Status: 'Not Done',
+      UserName:this.currentuser
+    }
+  );
   }
 
-  GetId() {
-    let id = crypto.randomUUID().split('-')[0];
-    return id;
-  }
 
   Submit() {
-    for (let key in this.Task) {
-      const k = key as keyof ITask; // This casting use keyof to make a compiler get sure that key exist in InterfaceofTask
-      if (this.Task[k] == '') {
+    const task = this.Task();
+    for (let key in task) {
+      const k = key as keyof ITaskBase; // This casting use keyof to make a compiler get sure that key exist in InterfaceofTask
+      if (task[k]== '') {
         console.log(this.Task);
         // console.log(this.Task[k]);
         this.Error.message = 'You should Fill inputs field';
@@ -66,18 +88,34 @@ isEditMode:boolean=false;
       }
     }
     this.Error.state = false;
-
-    this.itemevent.emit(this.Task);
+    this.TaskService.PostTask(this.Task()).subscribe({
+      next: (res) => {
+             this.toastr.success('Task Added Successfully  🎉', 'Success', {
+        timeOut: 2000,
+        progressBar: true,
+        positionClass: 'toast-top-right'
+      });
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log('PostTaskApi Send Successfully!');
+      },
+    });
     // console.log(this.Task);
     this.isEditMode = false;
-    this.Task = {
-      Id: this.GetId(),
+    this.Task.set(
+       {
       Title: '',
       Description: '',
       Priority: '',
       DueDate: '',
       Category: '',
-      Status: 'Not Done'
-    };
+      Status: 'Not Done',
+      UserName:this.currentuser
+    }
+    )
   }
 }

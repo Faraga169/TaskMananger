@@ -5,7 +5,14 @@
         <span>Login</span>
       </div>
 
-      <form #form="ngForm" (submit)="EventHandler(form)">
+
+      <form #form="ngForm" (submit)="EventHandler(username,password)">
+
+ @if(Errormessage()){
+            <div class="alert alert-danger py-2 mx-2 mb-0">
+        {{Errormessage()}}
+        </div>
+        }
         <div class="input_box">
           <input #username="ngModel"
             ngModel
@@ -57,8 +64,16 @@
 
         <div class="input_box">
           <input [disabled]="form.invalid" type="submit" class="input-submit" value="Login" />
+
         </div>
+
+
       </form>
+       <div class="text-center mt-3">
+               <button routerLink="/Auth/SignUp" class="btn btn-outline-light w-100">
+                        Create Account
+                       </button>
+            </div>
     </div>
   </div>
 </body>

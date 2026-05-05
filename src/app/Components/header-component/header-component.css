@@ -1,0 +1,58 @@
+/* Navbar background */
+.navbar {
+  background: linear-gradient(135deg, #141e30, #243b55);
+  backdrop-filter: blur(10px);
+}
+
+/* Brand */
+.navbar-brand {
+  color: white !important;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+}
+
+/* Links */
+.nav-link {
+  color: #ddd !important;
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+/* Hover */
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white !important;
+}
+
+/* Active link */
+.nav-link.bg-danger {
+  background: linear-gradient(135deg, #ff4b2b, #ff416c) !important;
+  color: white !important;
+  font-weight: 500;
+}
+
+/* Buttons */
+.navbar .btn {
+  border-radius: 25px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+/* Primary button */
+.btn-primary {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  border: none;
+}
+
+/* Danger button */
+.btn-danger {
+  background: linear-gradient(135deg, #ff4b2b, #ff416c);
+  border: none;
+}
+
+/* Hover effect */
+.navbar .btn:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}

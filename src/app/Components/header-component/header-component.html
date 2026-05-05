@@ -2,7 +2,7 @@
   <div class="container-fluid">
 
     <!-- Brand -->
-    <a class="navbar-brand fw-bold" routerLink="LayOut/Home">TaskApp</a>
+    <a class="navbar-brand fw-bold" routerLink="Home">TaskApp</a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
@@ -12,24 +12,24 @@
 
       <!-- Center Links -->
       <ul class="navbar-nav mx-auto gap-3">
-        <li class="nav-item">
-          <a class="nav-link active" routerLink="Home">Home</a>
+        <li class="nav-item" >
+          <a  class="nav-link active"  routerLinkActive="bg-danger rounded-pill"  routerLink="Home" >Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="Tasks">Tasks</a>
+        <li class="nav-item" >
+          <a class="nav-link"  routerLinkActive="bg-danger rounded-pill" routerLink="Tasks" >Tasks</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="AddTask">Add Task</a>
+        <li class="nav-item" >
+          <a class="nav-link" routerLinkActive="bg-danger rounded-pill" routerLink="AddTask" >Add Task</a>
         </li>
       </ul>
 
       <!-- Right Links -->
       <ul class="navbar-nav ms-auto gap-2">
         <li class="nav-item">
-          <a class="nav-link btn btn-primary text-white px-3 rounded" routerLink="/SignUp">Sign Up</a>
+          <a class="nav-link btn btn-primary text-white px-3 rounded" routerLink="/Auth/SignUp">Sign Up</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link btn btn-primary text-white px-3 rounded" routerLink="/Login">
+          <a (click)="LogOut()" class="nav-link btn btn-danger text-white px-3 rounded">
             SignIn
           </a>
         </li>

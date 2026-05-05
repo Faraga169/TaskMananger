@@ -1,33 +1,89 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ITask } from '../../Interface/ITask';
+import { Component, EventEmitter, inject, Input, Output, signal } from '@angular/core';
+import { ITaskBase } from '../../Interface/ITaskBase';
+import { Tasks } from '../../Services/Apis/TaskService';
+import { DatePipe } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-not-done-tasks-component',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './not-done-tasks-component.html',
   styleUrl: './not-done-tasks-component.css',
 })
 export class NotDoneTasksComponent {
- // Get data from InputList to NotDoneTasks
-  @Input() GetDataFromlist:ITask[]=[];
 
+ TaskService = inject(Tasks);
+ Tasks = signal<ITaskBase[]>([]);
+ toastr = inject(ToastrService);
 
-    // Transfer Data from Not DoneTasks to tasklist
-@Output() Updateitem: EventEmitter<ITask> = new EventEmitter<ITask>();
-
- onUpdateClick(task: ITask) {
-  this.Updateitem.emit(task);
+ currenruser=localStorage.getItem("UserName");
+ngOnInit(): void {
+    this.TaskService.FilterNotDoneTasks().subscribe({
+      next: (res) => {
+         const usertasks=res.filter((u)=>u.UserName==this.currenruser);
+        this.Tasks.update((tasks) => [...tasks, ...usertasks]);
+        console.log(this.Tasks());
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log('Get not Done Tasks Api respond Successfully!');
+      },
+    });
+  }
+onUpdateClick(task: ITaskBase) {
+  this.TaskService.UpdateTask(task).subscribe({
+    next: (res) => {
+   
+       this.toastr.success('Go To Update Data in Form  🎉', 'Success', {
+        timeOut: 2000,
+        progressBar: true,
+        positionClass: 'toast-top-right'
+      });
+      this.TaskService.selectedTask.set(res);
+    }
+  });
 }
 
-@Output() Deleteitem: EventEmitter<ITask> = new EventEmitter<ITask>();
-onDeleteClick(i:ITask){
-  this.Deleteitem.emit(i);
-      console.log(this.GetDataFromlist)
-}
+  onDeleteClick(task: ITaskBase) {
+    this.TaskService.DeleteTask(task).subscribe(
+      {
+        next:(res)=>{
+          this.Tasks.update((task)=>task.filter((t)=>t.id!==res.id));
 
-@Output() Doneitem: EventEmitter<ITask> = new EventEmitter<ITask>();
-onDoneClick(i:ITask){
-  this.Doneitem.emit(i);
-      console.log(this.GetDataFromlist)
-}
+            this.toastr.warning('Task Deleted 🗑️', 'Success', {
+        timeOut: 2000,
+        progressBar: true,
+        positionClass: 'toast-top-right'
+      });
+        },
+        error:(err)=>{
+           console.log(err)
+        },
+         complete: () => {
+        console.log('Delete Task Api respond Successfully!');
+      }
+      }
+    );
+
+  }
+
+  onDoneClick(task: ITaskBase) {
+    this.TaskService.ChangeStatus(task).subscribe(
+      {
+        next:(res)=>{
+           this.toastr.success('Task Done Successfully 🎉', 'Success', {
+        timeOut: 2000,
+        progressBar: true,
+        positionClass: 'toast-top-right'
+      });
+        this.Tasks.update((tasks)=>tasks.map((t)=>t.id==res.id?res:t))
+        }
+      }
+    )
+
+  }
+
+
 }

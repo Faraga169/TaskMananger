@@ -1,0 +1,40 @@
+{
+  "Tasks": [
+    {
+      "Title": "jafgggg",
+      "Description": "12355",
+      "Priority": "medium",
+      "DueDate": "2026-05-12",
+      "Category": "personal",
+      "Status": "Done",
+      "id": "PqZc8zGGUH0"
+    },
+    {
+      "Title": "jj",
+      "Description": "klk",
+      "Priority": "medium",
+      "DueDate": "2026-05-21",
+      "Category": "personal",
+      "Status": "Done",
+      "UserName": "AhmedFarag",
+      "id": "DV_n2NC6opk"
+    }
+  ],
+  "Users": [
+    {
+      "UserName": "AhmedFarag",
+      "Email": "Ahmed@gmail.com",
+      "Password": "Messi169#",
+      "ConfirmPassword": "Messi169#",
+      "id": "yICO81aDfV8"
+    },
+    {
+      "UserName": "MariamFarag",
+      "Email": "Mariamfaragfekry@gmail.com",
+      "Password": "Mariam169#",
+      "ConfirmPassword": "Mariam169#",
+      "id": "LIsxwpRjAMc"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

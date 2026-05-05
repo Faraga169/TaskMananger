@@ -4,7 +4,7 @@
 
   <ul class="nav nav-pills justify-content-center gap-2 mb-4">
    <li class="nav-item">
-       <button class="nav-link active" (click)="getName($event)"  [class]="name=='All Tasks'?'nav-link active bg-primary text-white shadow-sm rounded-pill px-4' : 'nav-link bg-light text-dark rounded-pill px-4'"  type="button">All Tasks</button>
+       <button class="nav-link" (click)="getName($event)"  [class]="name=='All Tasks'?'nav-link active bg-primary text-white shadow-sm rounded-pill px-4' : 'nav-link bg-light text-dark rounded-pill px-4'"  type="button">All Tasks</button>
    </li>
 
    <li class="nav-item">
@@ -20,16 +20,16 @@
   <div class="tab-content border border-top-0 p-3">
     @switch(name){
       @case ('Done'){
-           <app-done-tasks-component (Deleteitem)="GetItemIdToDelete($event)"   (Updateitem)="GetItemIdToUpdate($event)" [GetDataFromlist]="FilterDoneTasks"></app-done-tasks-component>
+           <app-done-tasks-component  ></app-done-tasks-component>
 
       }
 
      @case ('NotDone') {
-                    <app-not-done-tasks-component (Doneitem)="GetItemIdToUpdateStatus($event)" (Deleteitem)="GetItemIdToDelete($event)"   (Updateitem)="GetItemIdToUpdate($event)"  [GetDataFromlist]=" FilterNotDoneTasks"></app-not-done-tasks-component>
+                    <app-not-done-tasks-component   ></app-not-done-tasks-component>
 
      }
      @default {
-               <app-all-tasks-component (Doneitem)="GetItemIdToUpdateStatus($event)" (Deleteitem)="GetItemIdToDelete($event)"   (Updateitem)="GetItemIdToUpdate($event)" [GetDataFromlist]="GetAllTasks"></app-all-tasks-component>
+               <app-all-tasks-component ></app-all-tasks-component>
 
      }
     }
