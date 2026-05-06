@@ -3,6 +3,7 @@ import { Tasks } from '../../Services/Apis/TaskService';
 import { ITaskBase } from '../../Interface/ITaskBase';
 import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-tasks-component',
@@ -14,9 +15,10 @@ export class AllTasksComponent {
   Tasks = signal<ITaskBase[]>([]);
 
   TaskService = inject(Tasks);
-   toastr = inject(ToastrService);
+  toastr = inject(ToastrService);
+   router=inject(Router);
   currentUser = localStorage.getItem('UserName');
- 
+
 
   ngOnInit(): void {
     this.TaskService.GetAllTasks().subscribe({
@@ -45,6 +47,9 @@ export class AllTasksComponent {
         progressBar: true,
         positionClass: 'toast-top-right'
       });
+
+      this.router.navigate(['/LayOut','AddTask']);
+
     }
   });
 }

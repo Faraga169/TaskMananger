@@ -1,98 +1,103 @@
 <div class="container mt-4">
   <div class="row g-4">
-      @if( Tasks().length>0){
-         @for (i of Tasks(); track i.id) {
 
-                    <div class="col-md-6">
+    @if (Tasks().length > 0) {
 
-        <div class="card border-0 shadow-sm rounded-4 h-100">
+      @for (i of Tasks(); track i.id) {
 
-          <div class="card-body p-4">
+        <div class="col-md-6">
 
-            <!-- Title -->
-            <h5 class="fw-bold mb-2">
-              {{ i.Title }}
-            </h5>
+          <div class="card border-0 shadow-sm rounded-4 h-100 hover-card">
 
-            <!-- Description -->
-            <p class="text-muted mb-3">
-              {{ i.Description }}
-            </p>
+            <div class="card-body p-4">
 
-            <!-- Badges -->
-            <div class="d-flex flex-wrap gap-2 mb-3">
+              <!-- Title -->
+              <h5 class="fw-bold mb-2">
+                <i class="bi bi-check2-square text-success me-2"></i>
+                {{ i.Title }}
+              </h5>
 
-              <span class="badge bg-light text-dark border">
-                {{ i.Priority }}
-              </span>
+              <!-- Description -->
+              <p class="text-muted mb-3">
+                <i class="bi bi-align-left me-1"></i>
+                {{ i.Description }}
+              </p>
 
-              <span class="badge bg-light text-dark border">
-                {{ i.Category }}
-              </span>
+              <!-- Badges -->
+              <div class="d-flex flex-wrap gap-2 mb-3">
 
-              <span class="badge bg-success">
-                {{ i.Status }}
-              </span>
+                <span class="badge bg-light text-dark border">
+                  <i class="bi bi-flag me-1 text-danger"></i>
+                  {{ i.Priority }}
+                </span>
 
-            </div>
+                <span class="badge bg-light text-dark border">
+                  <i class="bi bi-tag me-1 text-info"></i>
+                  {{ i.Category }}
+                </span>
 
-            <!-- Footer -->
-            <div class="d-flex justify-content-between align-items-center">
+                <span class="badge bg-success">
+                  <i class="bi bi-check-circle me-1"></i>
+                  {{ i.Status }}
+                </span>
 
-              <small class="text-muted">
-               {{ i.DueDate | date:'dd MMM yyyy' }}
-              </small>
+              </div>
 
-              <!-- Buttons -->
-              <div class="d-flex gap-2">
+              <!-- Footer -->
+              <div class="d-flex justify-content-between align-items-center">
 
-                <button (click)="onUpdateClick(i)" class="btn btn-sm btn-outline-warning rounded-pill">
-                  Update
-                </button>
+                <small class="text-muted">
+                  <i class="bi bi-calendar-event me-1"></i>
+                  {{ i.DueDate | date:'dd MMM yyyy' }}
+                </small>
 
-                <button (click)="onDeleteClick(i)" class="btn btn-sm btn-outline-danger rounded-pill">
-                  Delete
-                </button>
+                <!-- Buttons -->
+                <div class="d-flex gap-2">
 
+                  <button (click)="onUpdateClick(i)"
+                          class="btn btn-sm btn-outline-warning rounded-pill">
+                    <i class="bi bi-pencil-square me-1"></i>
+                    Update
+                  </button>
+
+                  <button (click)="onDeleteClick(i)"
+                          class="btn btn-sm btn-outline-danger rounded-pill">
+                    <i class="bi bi-trash me-1"></i>
+                    Delete
+                  </button>
+
+                </div>
 
               </div>
 
             </div>
-
           </div>
+
         </div>
 
-      </div>
-                  }
-
-
       }
 
+    } @else {
 
+      <div class="col-12">
+        <div class="text-center py-5 empty-state">
 
+          <div class="mb-3">
+            <i class="bi bi-check2-circle display-4 text-success"></i>
+          </div>
 
+          <h4 class="text-muted">
+            No Done Tasks Found
+          </h4>
 
-      @else{
-    <div class="col-12">
-    <div class="text-center py-5">
+          <p class="text-muted mb-0">
+            Complete some tasks to see them here 
+          </p>
 
-      <div class="mb-3">
-        <i class="bi bi-inbox display-4 text-muted"></i>
+        </div>
       </div>
 
-      <h4 class="text-muted">
-        No Done Tasks Found
-      </h4>
-
-      <p class="text-muted mb-0">
-        Start by adding your first Done task
-      </p>
-
-    </div>
-  </div>
-
-      }
-
+    }
 
   </div>
 </div>

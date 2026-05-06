@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from './../../Services/Apis/Userservice';
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule, NgForm, NgModel} from '@angular/forms';
@@ -12,6 +13,7 @@ import { IUser } from '../../Interface/IUser';
 })
 export class LoginComponent {
   route=inject(Router)
+  toastr=inject(ToastrService)
   UserService=inject(UserService)
   User:Partial<IUser|null>=null;
   Errormessage=signal<string>('');
@@ -36,6 +38,11 @@ export class LoginComponent {
                      localStorage.setItem("UserName",username.value);
                      localStorage.setItem("Password",password.value);
                      this.route.navigate(['/LayOut','Home'])
+                        this.toastr.success('You Make Login Successfully 🎉', 'Success', {
+        timeOut: 2000,
+        progressBar: true,
+        positionClass: 'toast-top-right'
+      });
                     //  console.log(res);
       }
       else{

@@ -10,30 +10,36 @@
           <div class="card-body p-4">
 
             <!-- Title -->
-            <h5 class="fw-bold mb-2">
-              {{ i.Title }}
-            </h5>
+           <h5 class="fw-bold mb-2">
+  <i class="bi bi-card-text me-2 text-primary"></i>
+  {{ i.Title }}
+</h5>
 
             <!-- Description -->
-            <p class="text-muted mb-3">
-              {{ i.Description }}
-            </p>
+           <p class="text-muted mb-3">
+  <i class="bi bi-align-left me-1"></i>
+  {{ i.Description }}
+</p>
 
             <!-- Badges -->
             <div class="d-flex flex-wrap gap-2 mb-3">
 
+            <span class="badge bg-light text-dark border">
+  <i class="bi bi-flag me-1 text-danger"></i>
+  {{ i.Priority }}
+</span>
               <span class="badge bg-light text-dark border">
-                {{ i.Priority }}
-              </span>
-
-              <span class="badge bg-light text-dark border">
-                {{ i.Category }}
-              </span>
-
+  <i class="bi bi-tag me-1 text-info"></i>
+  {{ i.Category }}
+</span>
               <span class="badge"
-                    [class]="i.Status=='Done'? 'bg-success':  'bg-warning text-dark'";>
-                {{ i.Status }}
-              </span>
+  [class]="i.Status=='Done'? 'bg-success':  'bg-warning text-dark'">
+  <i class="bi"
+     [class.bi-check-circle]="i.Status=='Done'"
+     [class.bi-hourglass-split]="i.Status!='Done'">
+  </i>
+  {{ i.Status }}
+</span>
 
             </div>
 
@@ -41,25 +47,31 @@
             <div class="d-flex justify-content-between align-items-center">
 
               <small class="text-muted">
-                {{ i.DueDate | date:'dd MMM yyyy' }}
-              </small>
-
+  <i class="bi bi-calendar-event me-1"></i>
+  {{ i.DueDate | date:'dd MMM yyyy' }}
+</small>
               <!-- Buttons -->
               <div class="d-flex gap-2">
 
-                <button  (click)="onUpdateClick(i)" class="btn btn-sm btn-outline-warning rounded-pill">
-                  Update
-                </button>
+                <button (click)="onUpdateClick(i)"
+        class="btn btn-sm btn-outline-warning rounded-pill">
+  <i class="bi bi-pencil-square me-1"></i>
+  Update
+</button>
 
-                <button (click)="onDeleteClick(i)" class="btn btn-sm btn-outline-danger rounded-pill">
-                  Delete
-                </button>
+<button (click)="onDeleteClick(i)"
+        class="btn btn-sm btn-outline-danger rounded-pill">
+  <i class="bi bi-trash me-1"></i>
+  Delete
+</button>
 
-                @if (i.Status !== 'Done') {
-                  <button (click)="onDoneClick(i)"  class="btn btn-sm btn-success rounded-pill">
-                    Done
-                  </button>
-                }
+@if (i.Status !== 'Done') {
+  <button (click)="onDoneClick(i)"
+          class="btn btn-sm btn-success rounded-pill">
+    <i class="bi bi-check2-circle me-1"></i>
+    Done
+  </button>
+}
 
               </div>
 

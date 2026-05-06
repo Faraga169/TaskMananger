@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from './../../Services/Apis/Userservice';
 import { Router } from '@angular/router';
 import { Component, inject, signal } from '@angular/core';
@@ -12,11 +13,7 @@ import { IUser } from '../../Interface/IUser';
   styleUrl: './sign-up-component.css',
 })
 export class SignUpComponent {
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-
-  }
+  toastr=inject(ToastrService)
       User=signal<IUser|{}>({})
       UserService=inject(UserService)
       route=inject(Router)
@@ -44,6 +41,11 @@ export class SignUpComponent {
     {
       next:(res)=>{
            console.log(res);
+             this.toastr.success('You Make Sign Up Successfully 🎉', 'Success', {
+        timeOut: 2000,
+        progressBar: true,
+        positionClass: 'toast-top-right'
+      });
             this.route.navigate(['/Auth','Login']);
       },
       error:(err)=>{
